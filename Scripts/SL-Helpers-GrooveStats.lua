@@ -41,7 +41,7 @@
 -- args: any, arguments that will be made accesible to the callback function. This
 --       can of any type as long as the callback knows what to do with it.
 RequestResponseActor = function(x, y)
-	local url_prefix = "https://api.groovestats.com/"
+	local url_prefix = "https://boogiestats.andr.host/"
 
 	return Def.ActorFrame{
 		InitCommand=function(self)
@@ -115,7 +115,7 @@ RequestResponseActor = function(x, y)
 					if self.leaving_screen then
 						return
 					end
-					
+
 					if params.callback then
 						if not response.error or ToEnumShortString(response.error) ~= "Cancelled" then
 							params.callback(response, params.args)
@@ -192,7 +192,7 @@ ParseGrooveStatsIni = function(player)
 		[PLAYER_1] = "ProfileSlot_Player1",
 		[PLAYER_2] = "ProfileSlot_Player2"
 	}
-	
+
 	if not profile_slot[player] then return "" end
 
 	local dir = PROFILEMAN:GetProfileDir(profile_slot[player])
@@ -395,7 +395,7 @@ ValidForGrooveStats = function(player)
 				local idx = (i < 6 and i-1 or i)
 				if i == 1 then
 					-- For the FA+ fantastic, the first window can be anything as long as it's <= the actual fantastic window
-					-- We could use FloatEquals here, but that's a 0.0001 margin of error for the equality case which I think 
+					-- We could use FloatEquals here, but that's a 0.0001 margin of error for the equality case which I think
 					-- will be generally irrelevant.
 					valid[7] = valid[7] and (PREFSMAN:GetPreference("TimingWindowSeconds"..window) + TWA <= ExpectedWindows[1])
 				else
@@ -483,7 +483,7 @@ CreateCommentString = function(player)
 		local idx = SL.Global.GameMode == "FA+" and i-1 or i
 		local suffix = i == 6 and "m" or suffixes[idx]
 		local tns = i == 6 and "TapNoteScore_Miss" or "TapNoteScore_W"..i
-		
+
 		local number = pss:GetTapNoteScores(tns)
 
 		-- If the windows are disabled, then the number will be 0.
@@ -596,7 +596,7 @@ end
 -- -----------------------------------------------------------------------
 -- Downloads an Event unlock and unzips it. If a download with the same URL and
 -- destination pack name exists, the download attempt is skipped.
--- 
+--
 -- Args are:
 --   url: string, the file to download from the web.
 --   unlockName: string, an identifier for the download.
@@ -691,7 +691,7 @@ DownloadEventUnlock = function(url, unlockName, packName)
 		onResponse=function(response)
 			local downloadInfo = SL.Downloads[uuid]
 			if downloadInfo == nil then return end
-			
+
 			downloadInfo.Complete = true
 			if response.error ~= nil then
 				downloadInfo.ErrorMessage = response.errorMessage
